@@ -15,9 +15,8 @@
         justify-content: center;
         align-items: center;
         font-family: 'Baloo 2', 'Comic Sans MS', cursive;
-        background-color: #ffffff;
+        background-color: #ffffff; /* 배경은 항상 흰색 */
         cursor: pointer;
-        transition: background-color 0.5s;
     }
 
     /* 첫 페이지 */
@@ -30,17 +29,12 @@
         line-height: 1.2;
     }
 
-    /* 마지막 페이지 메시지 */
-    #message {
-        display: none; /* 처음에는 숨김 */
-        font-size: 4rem;
-        color: #ff1493;
-        position: absolute;
-        top: 40%;
-        text-align: center;
-        width: 100%;
-        opacity: 0;
-        animation: fadeInMessage 1.5s forwards;
+    /* 첫 페이지 안내 문구 간격 */
+    #first span {
+        display: block;
+        margin-top: 2rem; /* 정민아 글자와 떨어뜨림 */
+        font-size: 2rem;
+        color: #ff69b4;
     }
 
     /* 하트 이모지 */
@@ -58,11 +52,6 @@
         100% { opacity: 1; transform: scale(1); }
     }
 
-    @keyframes fadeInMessage {
-        0% { opacity: 0; transform: scale(0.8); }
-        100% { opacity: 1; transform: scale(1); }
-    }
-
     @keyframes float {
         0% { transform: translateY(100vh) scale(1); opacity: 0.8; }
         50% { opacity: 1; }
@@ -72,36 +61,54 @@
     /* 모바일 대응 */
     @media (max-width: 600px) {
         #first { font-size: 12vw; }
-        #first span { font-size: 5vw; }
-        #message { font-size: 10vw; }
+        #first span { font-size: 5vw; margin-top: 5vw; }
         .heart { font-size: 6vw; }
     }
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
 </head>
 <body>
-<div id="first">정민아 있잖아 💖<br><span>화면 아무 곳이나 눌러줘</span></div>
-<div id="message">내가 많이 사랑해 💖</div>
+<div id="first">
+    정민아 있잖아 💖
+    <span>화면 아무 곳이나 눌러줘</span>
+</div>
 
 <script>
 const first = document.getElementById('first');
-const message = document.getElementById('message');
 
+// 클릭 이벤트
 document.body.addEventListener('click', () => {
     // 첫 페이지 숨기기
     first.style.display = 'none';
 
-    // 배경색 변경
-    document.body.style.backgroundColor = '#fff0f5';
+    // 마지막 메시지 생성
+    const message = document.createElement('div');
+    message.innerText = '내가 많이 사랑해 💖';
+    message.style.position = 'absolute';
+    message.style.top = '40%';
+    message.style.width = '100%';
+    message.style.textAlign = 'center';
+    message.style.fontSize = '4rem';
+    message.style.color = '#ff1493';
+    message.style.opacity = 0;
+    message.style.animation = 'fadeInMsg 1.5s forwards';
+    document.body.appendChild(message);
 
-    // 마지막 메시지 나타나기
-    message.style.display = 'block';
-    message.style.animation = 'fadeInMessage 1.5s forwards';
+    // 마지막 메시지 애니메이션
+    const style = document.createElement('style');
+    style.innerHTML = `
+        @keyframes fadeInMsg {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+    `;
+    document.head.appendChild(style);
 
     // 하트 시작
     startHearts();
 });
 
+// 하트 생성
 function startHearts() {
     const hearts = ['❤️','💖','💘','💝'];
     function createHeart() {
