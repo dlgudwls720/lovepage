@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>정민이에게</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
+        background-color: #ffe4e1;
+        transition: background-color 1s;
+    }
+    h1 {
+        font-size: 5rem; /* PC에서와 동일한 크기 */
+        color: #ff69b4;
+        text-align: center;
+        cursor: pointer;
+        opacity: 0;
+        animation: fadeIn 1s forwards;
+        line-height: 1.2;
+    }
+    @keyframes fadeIn { to { opacity: 1; } }
+
+    #message {
+        font-size: 4rem;
+        color: #ff1493;
+        position: absolute;
+        top: 40%;
+        text-align: center;
+        width: 100%;
+        opacity: 0;
+        transition: opacity 1s;
+    }
+    .heart {
+        position: absolute;
+        font-size: 2rem;
+        color: red;
+        user-select: none;
+        pointer-events: none;
+        animation: float 5s linear infinite;
+    }
+    @keyframes float {
+        0% { transform: translateY(100vh) scale(1); opacity: 0.8; }
+        50% { opacity: 1; }
+        100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
+    }
+</style>
+</head>
+<body>
+<h1 id="first">정민아 💖<br><span style="font-size:2rem">클릭하면 다음으로</span></h1>
+<div id="message">내가 많이 사랑해 💖</div>
+
+<script>
+const first = document.getElementById('first');
+const message = document.getElementById('message');
+
+first.addEventListener('click', () => {
+    first.style.display = 'none';
+    document.body.style.backgroundColor = '#fff0f5';
+    message.style.opacity = 1;
+    startHearts();
+});
+
+function startHearts() {
+    function createHeart() {
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.style.left = Math.random() * window.innerWidth + 'px';
+        heart.style.fontSize = '2rem';
+        heart.innerText = '❤️';
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 5000);
+    }
+    setInterval(createHeart, 200);
+}
+</script>
+</body>
+</html>
