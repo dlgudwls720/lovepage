@@ -20,7 +20,7 @@
         cursor: pointer;
     }
 
-    h1 {
+    #first {
         font-size: 5rem;
         color: #ff69b4;
         text-align: center;
@@ -30,15 +30,13 @@
     }
 
     #message {
+        display: none; /* 처음에는 숨김 */
         font-size: 4rem;
         color: #ff1493;
         position: absolute;
         top: 40%;
         text-align: center;
         width: 100%;
-        opacity: 0;
-        transition: opacity 1s;
-        animation: popIn 1s forwards;
     }
 
     .heart {
@@ -65,7 +63,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
 </head>
 <body>
-<h1 id="first">정민아 있잖아💖<br><span style="font-size:2rem">클릭하면 다음으로</span></h1>
+<div id="first">정민아 있잖아 💖<br><span style="font-size:2rem">화면 아무 곳이나 눌러줘</span></div>
 <div id="message">내가 많이 사랑해 💖</div>
 
 <script>
@@ -73,10 +71,15 @@ const first = document.getElementById('first');
 const message = document.getElementById('message');
 
 document.body.addEventListener('click', () => {
+    // 첫 페이지 숨기기
     first.style.display = 'none';
+
+    // 배경 바꾸고 마지막 메시지 보이기
     document.body.style.backgroundColor = '#fff0f5';
-    message.style.opacity = 1;
-    message.style.animation = 'popIn 1s forwards'; // 마지막 메시지도 생기듯
+    message.style.display = 'block';
+    message.style.animation = 'popIn 1s forwards';
+
+    // 하트 시작
     startHearts();
 });
 
