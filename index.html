@@ -14,8 +14,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        font-family: 'Baloo 2', 'Comic Sans MS', cursive;
-        background-color: #ffffff; /* 배경은 항상 흰색 */
+        font-family: 'Baloo 2', 'Comic Sans MS', cursive; /* 동글동글 귀여운 글꼴 */
+        background-color: #ffffff; /* 배경 흰색 유지 */
         cursor: pointer;
     }
 
@@ -32,7 +32,7 @@
     /* 첫 페이지 안내 문구 간격 */
     #first span {
         display: block;
-        margin-top: 2rem; /* 정민아 글자와 떨어뜨림 */
+        margin-top: 2rem; /* 정민아 글자와 간격 */
         font-size: 2rem;
         color: #ff69b4;
     }
@@ -91,6 +91,7 @@ document.body.addEventListener('click', () => {
     message.style.fontSize = '4rem';
     message.style.color = '#ff1493';
     message.style.opacity = 0;
+    message.style.fontFamily = "'Baloo 2', 'Comic Sans MS', cursive"; /* 귀여운 글꼴 */
     message.style.animation = 'fadeInMsg 1.5s forwards';
     document.body.appendChild(message);
 
