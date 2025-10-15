@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>정민이에게</title>
+<title>정민아에게</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
     body, html {
@@ -15,20 +15,22 @@
         justify-content: center;
         align-items: center;
         font-family: 'Baloo 2', 'Comic Sans MS', cursive;
-        background-color: #ffe4e1;
-        transition: background-color 1s;
+        background-color: #ffffff;
         cursor: pointer;
+        transition: background-color 0.5s;
     }
 
+    /* 첫 페이지 */
     #first {
         font-size: 5rem;
         color: #ff69b4;
         text-align: center;
         opacity: 0;
-        animation: popIn 1s forwards;
+        animation: fadeIn 1.5s forwards;
         line-height: 1.2;
     }
 
+    /* 마지막 페이지 메시지 */
     #message {
         display: none; /* 처음에는 숨김 */
         font-size: 4rem;
@@ -37,15 +39,28 @@
         top: 40%;
         text-align: center;
         width: 100%;
+        opacity: 0;
+        animation: fadeInMessage 1.5s forwards;
     }
 
+    /* 하트 이모지 */
     .heart {
         position: absolute;
-        width: 40px;
-        height: 40px;
+        font-size: 2rem;
+        color: red;
         user-select: none;
         pointer-events: none;
         animation: float 5s linear infinite;
+    }
+
+    @keyframes fadeIn {
+        0% { opacity: 0; transform: scale(0.8); }
+        100% { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes fadeInMessage {
+        0% { opacity: 0; transform: scale(0.8); }
+        100% { opacity: 1; transform: scale(1); }
     }
 
     @keyframes float {
@@ -54,16 +69,18 @@
         100% { transform: translateY(-10vh) scale(1.5); opacity: 0; }
     }
 
-    @keyframes popIn {
-        0% { transform: scale(0); opacity: 0; }
-        60% { transform: scale(1.2); opacity: 1; }
-        100% { transform: scale(1); }
+    /* 모바일 대응 */
+    @media (max-width: 600px) {
+        #first { font-size: 12vw; }
+        #first span { font-size: 5vw; }
+        #message { font-size: 10vw; }
+        .heart { font-size: 6vw; }
     }
 </style>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
 </head>
 <body>
-<div id="first">정민아 있잖아 💖<br><span style="font-size:2rem">화면 아무 곳이나 눌러줘</span></div>
+<div id="first">정민아 💖<br><span>화면 아무 곳이나 눌러줘</span></div>
 <div id="message">내가 많이 사랑해 💖</div>
 
 <script>
@@ -74,24 +91,25 @@ document.body.addEventListener('click', () => {
     // 첫 페이지 숨기기
     first.style.display = 'none';
 
-    // 배경 바꾸고 마지막 메시지 보이기
+    // 배경색 변경
     document.body.style.backgroundColor = '#fff0f5';
+
+    // 마지막 메시지 나타나기
     message.style.display = 'block';
-    message.style.animation = 'popIn 1s forwards';
+    message.style.animation = 'fadeInMessage 1.5s forwards';
 
     // 하트 시작
     startHearts();
 });
 
 function startHearts() {
-    const heartImage = 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Red_Heart.svg/1024px-Red_Heart.svg.png';
+    const hearts = ['❤️','💖','💘','💝'];
     function createHeart() {
-        const heart = document.createElement('img');
-        heart.src = heartImage;
+        const heart = document.createElement('div');
         heart.className = 'heart';
+        heart.innerText = hearts[Math.floor(Math.random()*hearts.length)];
         heart.style.left = Math.random() * window.innerWidth + 'px';
-        heart.style.width = (Math.random() * 30 + 20) + 'px';
-        heart.style.height = heart.style.width;
+        heart.style.fontSize = (Math.random() * 30 + 20) + 'px';
         document.body.appendChild(heart);
         setTimeout(() => heart.remove(), 5000);
     }
@@ -100,4 +118,3 @@ function startHearts() {
 </script>
 </body>
 </html>
-
